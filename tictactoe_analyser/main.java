@@ -120,21 +120,126 @@ public static void getState(List<String> state_temp,List<Integer> play_temp,List
 		
 	}
 }
+
+
+
+
+public static int findSymmetry(String state1,String state2)
+{
+	
+	int[][] sym = new int[][]{
+			{0,1,2,3,4,5,6,7,8},
+			{2,5,8,1,4,7,0,3,6},
+			{6,3,0,7,4,1,8,5,2},
+			{8,7,6,5,4,3,2,1,0},
+			{8,5,2,7,4,1,6,3,0},
+			{2,1,0,5,4,3,8,7,6},
+			{6,7,8,3,4,5,0,1,2},
+			{0,3,6,1,4,7,2,5,8}
+		};
+	
+	int count = 0;
+	
+	for(int j=0;j<8;j++)
+	{
+		count=0;
+	for(int i=0;i<9;i++)
+	{
+		
+		if(state1.charAt(i)==state2.charAt(sym[j][i]))
+		{
+			count++;
+						
+		}
+		else break;
+				
+	}
+	
+	if(count == 9)
+		return j;
+	
+	}
+		
+	return -1;
+	
+}
+
+
+public static void createTable(List<String> stateInput,List<String> stateOutput,List<Integer> play,List<List<Integer>> playTable)
+{
+	
+	List<Integer> playMoves = new ArrayList<>();
+	for(int i=0;i<9;i++)
+		playMoves.add(0);
+	
+	stateOutput.add(stateInput.get(0));
+	
+	
+	for(int i=0;i<stateInput.size();i++)
+	{
+		int k=0;
+		
+		for(int m=0;m<stateOutput.size();m++)
+		{
+			
+			 k = findSymmetry(stateInput.get(i),stateOutput.get(m));
+			 System.out.println(m + " " + stateInput.get(i) + " " + stateOutput.get(m));
+			 //k = findSymmetry("_________","_________");
+			 if(k!=1)
+			 {
+				 break;
+				 
+			 }
+						
+		}
+		
+		//System.out.println(stateOutput.size() + " " + stateInput.get(i));
+		
+		if(k==-1)
+		{
+			stateOutput.add(stateInput.get(i));
+			
+		}
+		
+	}
+
+	
+
+	
+	
+}
+
+
+
 	
 	public static void main(String[] args) {
+		
+				
 		List<String> state_temp = new ArrayList<>();
 		List<Integer> play_temp = new ArrayList<>();
 		
 		List<String> state = new ArrayList<>();
 		List<String> stateNext = new ArrayList<>();
 		List<Integer> play = new ArrayList<>();
+		
+		List<String> stateOutput = new ArrayList<>();
+		List<List<Integer>> playTable=new ArrayList<>();
 		System.out.println("Begin");
 		// TODO Auto-generated method stub
 		
 		readfile(state_temp,play_temp);
 		getState(state_temp,play_temp,state,stateNext,play);
-		for(int i=0;i<state.size();i++)
-		System.out.println(state.get(i) +" " + stateNext.get(i) + " "+ play.get(i));
+		
+		createTable(state,stateOutput,play,playTable);
+		
+		for(int i=0;i<stateOutput.size();i++)
+			System.out.println(stateOutput.get(i) + " "+ play.get(i));
+			
+		
+		System.out.println(state.size() + " " + stateOutput.size() );
+		
+	//List<List<Integer>> temp = new ArrayList<>();
+		//temp.add(arg0)
 		
 	}
 
