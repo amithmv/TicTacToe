@@ -37,6 +37,22 @@ public static void readfile (List<String> state,List<Integer> play)
 	
 
 }
+
+public static int getNumMoves(String state)
+{
+int count=0;
+	for(int i=0;i<9;i++)
+	{
+		if(state.charAt(i)!=EMPTY)
+		{
+			count++;
+			
+		}
+				
+	}
+	return count;
+	
+}
 	
 	
 public static void getState(List<String> state_temp,List<Integer> play_temp,List<String> state,List<String> stateNext,List<Integer> play)
@@ -51,6 +67,16 @@ public static void getState(List<String> state_temp,List<Integer> play_temp,List
 		oldState = state_temp.get(i);
 		currentState = state_temp.get(i+1);
 		myPlay = play_temp.get(i);
+		
+		
+		int count =getNumMoves(currentState);
+		int prevcount =getNumMoves(oldState);
+		
+		if(count>0)
+		{
+		
+			if(count==1 && prevcount>0)
+				oldState = "_________";
 		
 		for(int j=0;j<9;j++)
 		{
@@ -91,6 +117,8 @@ public static void getState(List<String> state_temp,List<Integer> play_temp,List
 		subState="";
 		
 	}
+		
+	}
 }
 	
 	public static void main(String[] args) {
@@ -105,8 +133,8 @@ public static void getState(List<String> state_temp,List<Integer> play_temp,List
 		
 		readfile(state_temp,play_temp);
 		getState(state_temp,play_temp,state,stateNext,play);
-		
-		System.out.println(state.get(1) +" " + stateNext.get(1) + " "+ play.get(1));
+		for(int i=0;i<state.size();i++)
+		System.out.println(state.get(i) +" " + stateNext.get(i) + " "+ play.get(i));
 		
 	}
 
