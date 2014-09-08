@@ -295,7 +295,23 @@ public static void createTable(List<String> stateInput,List<String> stateOutput,
 
 		for(int j=0;j<playTable.size();j++)
 			System.out.println(stateOutput.get(j)+" "+playTable.get(j));
+		String tempState;
 		
+		
+		List<Integer> playOut = new ArrayList<>();
+		
+		
+		for(int j=0;j<playTable.size();j++)
+		{
+			tempState = stateOutput.get(j);
+			playOut = playTable.get(j);
+			for (int n=0;n<3;n++)
+			System.out.println(tempState.charAt(n*3) + ""+ tempState.charAt(n*3 + 1) +tempState.charAt(n*3 + 2)    + "   " + playOut.get(n*3)+ " " + playOut.get(n*3+1)+ " " + playOut.get(n*3+2) );
+			System.out.println();
+			
+			
+			
+		}
 		
 		
 	//List<List<Integer>> temp = new ArrayList<>();
