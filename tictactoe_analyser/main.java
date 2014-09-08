@@ -168,9 +168,15 @@ public static int findSymmetry(String state1,String state2)
 public static void createTable(List<String> stateInput,List<String> stateOutput,List<Integer> play,List<List<Integer>> playTable)
 {
 	
+	List<Integer> playMovesTemp = new ArrayList<>();
 	List<Integer> playMoves = new ArrayList<>();
-	for(int i=0;i<9;i++)
-		playMoves.add(0);
+	for(int r=0;r<9;r++)
+	{
+	playMoves.add(0);
+	playMovesTemp.add(0);
+	}
+	
+	playTable.add(playMovesTemp);
 	
 	stateOutput.add(stateInput.get(0));
 	
@@ -178,31 +184,65 @@ public static void createTable(List<String> stateInput,List<String> stateOutput,
 	for(int i=0;i<stateInput.size();i++)
 	{
 		int k=0;
+		int m=0;
 		
-		for(int m=0;m<stateOutput.size();m++)
+		/*for(int r=0;r<9;r++)
 		{
-			
+		playMoves.set(r,0);
+		playMovesTemp.set(r,0);
+		}*/
+		
+		//playMoves = playMovesTemp;
+		
+		
+		for(m=0;m<stateOutput.size();m++)
+		{
 			 k = findSymmetry(stateInput.get(i),stateOutput.get(m));
-			 System.out.println(m + " " + stateInput.get(i) + " " + stateOutput.get(m));
+			 //System.out.println(m + " " + stateInput.get(i) + " " + stateOutput.get(m));
 			 //k = findSymmetry("_________","_________");
-			 if(k!=1)
-			 {
-				 break;
-				 
-			 }
+			 if(k!=-1)
+			  break;
 						
 		}
-		
-		//System.out.println(stateOutput.size() + " " + stateInput.get(i));
 		
 		if(k==-1)
 		{
 			stateOutput.add(stateInput.get(i));
 			
+			//playTable.add(playMovesTemp);
+			
+			for(int r=0;r<9;r++)
+				playMoves.set(r,0);
+			
+			playMoves.set(play.get(i)-1,1);
+			
+			playTable.add(playMoves);
+			System.out.println(playMoves);
+			
+			
 		}
+		//System.out.println(playTable.get(playTable.size()-1));
+		/*else
+		{
+		
+		playMoves = playTable.get(m);
+		//System.out.println(playTable.get(m));
+		//playMoves.set(play.get(i)-1, playMoves.get(play.get(i)-1)+1);
+		//playTable.set(m, playMoves);
+		//System.out.println(playTable.get(m));
+		}
+		*/
+		
+		
 		
 	}
-
+	
+	
+	
+		//for(int j=0;j<9;j++)
+		System.out.println(playTable);
+			
+			
 	
 
 	
@@ -232,11 +272,15 @@ public static void createTable(List<String> stateInput,List<String> stateOutput,
 		
 		createTable(state,stateOutput,play,playTable);
 		
-		for(int i=0;i<stateOutput.size();i++)
-			System.out.println(stateOutput.get(i) + " "+ play.get(i));
+		//for(int i=0;i<stateOutput.size();i++)
+		//	System.out.println(stateOutput.get(i) + " "+ play.get(i));
 			
 		
-		System.out.println(state.size() + " " + stateOutput.size() );
+		//System.out.println(playTable.size() + " " + stateOutput.size() );
+		
+
+		
+		
 		
 	//List<List<Integer>> temp = new ArrayList<>();
 		//temp.add(arg0)
