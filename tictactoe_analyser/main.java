@@ -168,6 +168,18 @@ public static int findSymmetry(String state1,String state2)
 public static void createTable(List<String> stateInput,List<String> stateOutput,List<Integer> play,List<List<Integer>> playTable)
 {
 	
+	
+	int[][] sym = new int[][]{
+			{0,1,2,3,4,5,6,7,8},
+			{2,5,8,1,4,7,0,3,6},
+			{6,3,0,7,4,1,8,5,2},
+			{8,7,6,5,4,3,2,1,0},
+			{8,5,2,7,4,1,6,3,0},
+			{2,1,0,5,4,3,8,7,6},
+			{6,7,8,3,4,5,0,1,2},
+			{0,3,6,1,4,7,2,5,8}
+		};
+	
 	List<Integer> playMovesTemp = new ArrayList<>();
 	List<Integer> playMoves = new ArrayList<>();
 	for(int r=0;r<9;r++)
@@ -176,8 +188,11 @@ public static void createTable(List<String> stateInput,List<String> stateOutput,
 	playMovesTemp.add(0);
 	}
 	
-	playTable.add(playMovesTemp);
+	//playTable.add(playMovesTemp);
+	for(int r=0;r<9;r++)
+		playMoves.set(r,0);
 	
+	playTable.add(new ArrayList<Integer>(playMoves));
 	stateOutput.add(stateInput.get(0));
 	
 	
@@ -194,6 +209,7 @@ public static void createTable(List<String> stateInput,List<String> stateOutput,
 		
 		//playMoves = playMovesTemp;
 		
+	
 		
 		for(m=0;m<stateOutput.size();m++)
 		{
@@ -216,31 +232,29 @@ public static void createTable(List<String> stateInput,List<String> stateOutput,
 			
 			playMoves.set(play.get(i)-1,1);
 			
-			playTable.add(playMoves);
-			System.out.println(playMoves);
+			playTable.add(new ArrayList<Integer>(playMoves));
+			//System.out.println(playTable);
 			
 			
 		}
 		//System.out.println(playTable.get(playTable.size()-1));
-		/*else
+		else
 		{
 		
 		playMoves = playTable.get(m);
 		//System.out.println(playTable.get(m));
-		//playMoves.set(play.get(i)-1, playMoves.get(play.get(i)-1)+1);
-		//playTable.set(m, playMoves);
+		playMoves.set(sym[k][play.get(i)-1], playMoves.get(sym[k][play.get(i)-1])+1);
+		playTable.set(m, playMoves);
 		//System.out.println(playTable.get(m));
 		}
-		*/
 		
-		
+				
 		
 	}
 	
 	
 	
-		//for(int j=0;j<9;j++)
-		System.out.println(playTable);
+	
 			
 			
 	
@@ -279,6 +293,8 @@ public static void createTable(List<String> stateInput,List<String> stateOutput,
 		//System.out.println(playTable.size() + " " + stateOutput.size() );
 		
 
+		for(int j=0;j<playTable.size();j++)
+			System.out.println(stateOutput.get(j)+" "+playTable.get(j));
 		
 		
 		
